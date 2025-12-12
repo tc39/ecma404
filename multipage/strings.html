@@ -1,0 +1,171 @@
+<!doctype html><html lang="en-GB">
+<head><meta name="viewport" content="width=device-width, initial-scale=1"><meta charset="utf-8">
+<link rel="icon" href="../img/favicon.ico">
+<title>The JSON Data Interchange Syntax</title><script src="../assets/js/multipage.js?cache=0gTPsLwO" defer=""></script><script src="../assets/js/ecmarkup.js?cache=Qm2xQ9sG" defer=""></script><link rel="stylesheet" href="../assets/css/ecmarkup.css"><link rel="stylesheet" href="../assets/css/print.css" media="print"><style>
+    @media print {
+      @page :left {
+        @bottom-right {
+          content: '© Ecma International 2017';
+        }
+      }
+      @page :right {
+        @bottom-left {
+          content: '© Ecma International 2017';
+        }
+      }
+      @page :first {
+        @bottom-left {
+          content: '';
+        }
+        @bottom-right {
+          content: '';
+        }
+      }
+      @page :blank {
+        @bottom-left {
+          content: '';
+        }
+        @bottom-right {
+          content: '';
+        }
+      }
+    }
+    </style><style>
+      @import url("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/base16/solarized-light.min.css");
+      @import url("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/a11y-dark.min.css") (prefers-color-scheme: dark);
+    </style><link rel="canonical" href="../#sec-strings"></head>
+<body><div id="menu"><div id="menu-search"><input type="text" id="menu-search-box" placeholder="Search..."><div id="menu-search-results" class="inactive"></div></div><div id="menu-pins"><div class="menu-pane-header">Pins<button class="unpin-all">clear</button></div><ul id="menu-pins-list"></ul></div><div class="menu-pane-header">Table of Contents</div><div id="menu-toc"><ol class="toc"><li><span class="item-toggle-none"></span><a href="./#sec-intro" title="Introduction">Introduction</a></li><li><span class="item-toggle-none"></span><a href="scope.html#sec-scope" title="Scope"><span class="secnum">1</span> Scope</a></li><li><span class="item-toggle-none"></span><a href="conformance.html#sec-conformance" title="Conformance"><span class="secnum">2</span> Conformance</a></li><li><span class="item-toggle-none"></span><a href="normative-references.html#sec-normative-references" title="Normative References"><span class="secnum">3</span> Normative References</a></li><li><span class="item-toggle-none"></span><a href="json-text.html#sec-json-text" title="JSON Text"><span class="secnum">4</span> JSON Text</a></li><li><span class="item-toggle-none"></span><a href="json-values.html#sec-json-values" title="JSON Values"><span class="secnum">5</span> JSON Values</a></li><li><span class="item-toggle-none"></span><a href="objects.html#sec-objects" title="Objects"><span class="secnum">6</span> Objects</a></li><li><span class="item-toggle-none"></span><a href="arrays.html#sec-arrays" title="Arrays"><span class="secnum">7</span> Arrays</a></li><li><span class="item-toggle-none"></span><a href="numbers.html#sec-numbers" title="Numbers"><span class="secnum">8</span> Numbers</a></li><li><span class="item-toggle-none"></span><a href="strings.html#sec-strings" title="Strings"><span class="secnum">9</span> Strings</a></li><li><span class="item-toggle-none"></span><a href="bibliography.html#sec-bibliography" title="Bibliography"><span class="secnum">Annex A <span class="annex-kind">(informative)</span></span> Bibliography</a></li><li><span class="item-toggle-none"></span><a href="copyright-and-software-license.html#sec-copyright-and-software-license" title="Copyright &amp; Software License">Copyright &amp; Software License</a></li></ol></div></div>
+<div id="menu-spacer" class="menu-spacer"></div>
+<div id="menu-toggle"><svg xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%; stroke:currentColor" viewBox="0 0 120 120" width="54" height="54">
+      <title>Menu</title>
+      <path stroke-width="10" stroke-linecap="round" d="M30,60 h60  M30,30 m0,5 h60  M30,90 m0,-5 h60"></path>
+    </svg></div>
+<div id="shortcuts-help">
+<ul>
+  <li><span>Toggle shortcuts help</span><code>?</code></li>
+  <li><span>Toggle "can call user code" annotations</span><code>u</code></li>
+<li><span>Navigate to/from multipage</span><code>m</code></li>
+  <li><span>Jump to search box</span><code>/</code></li>
+  <li><span>Toggle pinning of the current clause</span><code>p</code></li>
+  <li><span>Jump to the <i>n</i><sup>th</sup> pin</span><code>1-9</code></li>
+  <li><span>Jump to the 10<sup>th</sup> pin</span><code>0</code></li>
+  <li><span>Jump to the most recent link target</span><code>`</code></li>
+</ul></div><div id='spec-container'><emu-clause id="sec-strings">
+  <h1><span class="secnum">9</span> Strings</h1>
+  <p>A string is a sequence of Unicode code points wrapped with quotation marks (U+0022). All code points may be placed within the quotation marks except for the code points that must be escaped: quotation mark (U+0022), reverse solidus (U+005C), and the control characters U+0000 to U+001F. There are two-character escape sequence representations of some characters.</p>
+  <emu-table id="table-escape-sequences" caption="Escape Sequences"><figure><figcaption>Table 3: Escape Sequences</figcaption>
+    <table>
+      <thead>
+        <tr>
+          <th>Escape Sequence</th>
+          <th>Represents</th>
+          <th>Code Point</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>\"</code></td>
+          <td>quotation mark</td>
+          <td>U+0022</td>
+        </tr>
+        <tr>
+          <td><code>\\</code></td>
+          <td>reverse solidus</td>
+          <td>U+005C</td>
+        </tr>
+        <tr>
+          <td><code>\/</code></td>
+          <td>solidus</td>
+          <td>U+002F</td>
+        </tr>
+        <tr>
+          <td><code>\b</code></td>
+          <td>backspace</td>
+          <td>U+0008</td>
+        </tr>
+        <tr>
+          <td><code>\f</code></td>
+          <td>form feed</td>
+          <td>U+000C</td>
+        </tr>
+        <tr>
+          <td><code>\n</code></td>
+          <td>line feed</td>
+          <td>U+000A</td>
+        </tr>
+        <tr>
+          <td><code>\r</code></td>
+          <td>carriage return</td>
+          <td>U+000D</td>
+        </tr>
+        <tr>
+          <td><code>\t</code></td>
+          <td>character tabulation</td>
+          <td>U+0009</td>
+        </tr>
+      </tbody>
+    </table>
+  </figure></emu-table>
+  <p>So, for example, a string containing only a single reverse solidus character may be represented as <code>"\\"</code>.</p>
+  <p>Any code point may be represented as a hexadecimal escape sequence. The meaning of such a hexadecimal number is determined by ISO/IEC 10646. If the code point is in the Basic Multilingual Plane (U+0000 through U+FFFF), then it may be represented as a six-character sequence: a reverse solidus, followed by the lowercase letter <code>u</code>, followed by four hexadecimal digits that encode the code point. Hexadecimal digits can be digits (U+0030 through U+0039) or the hexadecimal letters <code>A</code> through <code>F</code> in uppercase (U+0041 through U+0046) or lowercase (U+0061 through U+0066). So, for example, a string containing only a single reverse solidus character may be represented as <code>"\u005C"</code> .</p>
+  <p>The following four cases all produce the same result:</p>
+  <ul>
+    <li><code>"\u002F"</code></li>
+    <li><code>"\u002f"</code></li>
+    <li><code>"\/"</code></li>
+    <li><code>"/"</code></li>
+  </ul>
+  <p>To escape a code point that is not in the Basic Multilingual Plane, the character may be represented as a twelve-character sequence, encoding the UTF-16 surrogate pair corresponding to the code point. So for example, a string containing only the G clef character (U+1D11E) may be represented as <code>"\uD834\uDD1E"</code>. However, whether a processor of JSON texts interprets such a surrogate pair as a single code point or as an explicit surrogate pair is a semantic decision that is determined by the specific processor.</p>
+  <emu-note><span class="note">Note</span><div class="note-contents">
+    <p>The JSON grammar permits code points for which Unicode does not currently provide character assignments.</p>
+  </div></emu-note>
+  <emu-figure id="figure-string" caption="string"><figure><figcaption>Figure 5: string</figcaption>
+    <img src="../img/string.svg" alt="Railroad diagram for JSON string">
+  </figure></emu-figure>
+  <emu-grammar type="definition"><emu-production name="JSONString" id="prod-JSONString">
+    <emu-nt><a href="strings.html#prod-JSONString">JSONString</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="qkident3">
+        <emu-t>"</emu-t>
+        <emu-nt optional="" id="_ref_26"><a href="strings.html#prod-JSONStringCharacters">JSONStringCharacters</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt>
+        <emu-t>"</emu-t>
+    </emu-rhs>
+</emu-production>
+<emu-production name="JSONStringCharacters" id="prod-JSONStringCharacters">
+    <emu-nt><a href="strings.html#prod-JSONStringCharacters">JSONStringCharacters</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="1xhacxm2">
+        <emu-nt id="_ref_27"><a href="strings.html#prod-JSONStringCharacter">JSONStringCharacter</a></emu-nt>
+        <emu-nt optional="" id="_ref_28"><a href="strings.html#prod-JSONStringCharacters">JSONStringCharacters</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt>
+    </emu-rhs>
+</emu-production>
+<emu-production name="JSONStringCharacter" id="prod-JSONStringCharacter">
+    <emu-nt><a href="strings.html#prod-JSONStringCharacter">JSONStringCharacter</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="is2q64gk">
+        <emu-nt id="_ref_29"><a href="strings.html#prod-JSONSourceCharacter">JSONSourceCharacter</a></emu-nt> <emu-gmod>but not one of <emu-t>"</emu-t> or <emu-t>\</emu-t> or <emu-gprose>U+0000 through U+001F</emu-gprose></emu-gmod>
+    </emu-rhs>
+    <emu-rhs a="9fdgy-cz">
+        <emu-t>\</emu-t>
+        <emu-nt id="_ref_30"><a href="strings.html#prod-JSONEscapeSequence">JSONEscapeSequence</a></emu-nt>
+    </emu-rhs>
+</emu-production>
+<emu-production name="JSONEscapeSequence" id="prod-JSONEscapeSequence">
+    <emu-nt><a href="strings.html#prod-JSONEscapeSequence">JSONEscapeSequence</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="xmihj_hg">
+        <emu-nt id="_ref_31"><a href="strings.html#prod-JSONEscapeCharacter">JSONEscapeCharacter</a></emu-nt>
+    </emu-rhs>
+    <emu-rhs a="oji7vdjl">
+        <emu-t>u</emu-t>
+        <emu-nt id="_ref_32"><a href="strings.html#prod-JSONHexDigit">JSONHexDigit</a></emu-nt>
+        <emu-nt id="_ref_33"><a href="strings.html#prod-JSONHexDigit">JSONHexDigit</a></emu-nt>
+        <emu-nt id="_ref_34"><a href="strings.html#prod-JSONHexDigit">JSONHexDigit</a></emu-nt>
+        <emu-nt id="_ref_35"><a href="strings.html#prod-JSONHexDigit">JSONHexDigit</a></emu-nt>
+    </emu-rhs>
+</emu-production>
+<emu-production name="JSONEscapeCharacter" oneof="" id="prod-JSONEscapeCharacter">
+    <emu-nt><a href="strings.html#prod-JSONEscapeCharacter">JSONEscapeCharacter</a></emu-nt> <emu-geq>:</emu-geq> <emu-oneof>one of</emu-oneof> <emu-rhs><emu-t>"</emu-t> <emu-t>\</emu-t> <emu-t>/</emu-t> <emu-t>b</emu-t> <emu-t>f</emu-t> <emu-t>n</emu-t> <emu-t>r</emu-t> <emu-t>t</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="JSONHexDigit" oneof="" id="prod-JSONHexDigit">
+    <emu-nt><a href="strings.html#prod-JSONHexDigit">JSONHexDigit</a></emu-nt> <emu-geq>:</emu-geq> <emu-oneof>one of</emu-oneof> <emu-rhs><emu-t>0</emu-t> <emu-t>1</emu-t> <emu-t>2</emu-t> <emu-t>3</emu-t> <emu-t>4</emu-t> <emu-t>5</emu-t> <emu-t>6</emu-t> <emu-t>7</emu-t> <emu-t>8</emu-t> <emu-t>9</emu-t> <emu-t>a</emu-t> <emu-t>b</emu-t> <emu-t>c</emu-t> <emu-t>d</emu-t> <emu-t>e</emu-t> <emu-t>f</emu-t> <emu-t>A</emu-t> <emu-t>B</emu-t> <emu-t>C</emu-t> <emu-t>D</emu-t> <emu-t>E</emu-t> <emu-t>F</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="JSONSourceCharacter" id="prod-JSONSourceCharacter">
+    <emu-nt><a href="strings.html#prod-JSONSourceCharacter">JSONSourceCharacter</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="xks4vqzw">
+        <emu-gprose>any Unicode code point</emu-gprose>
+    </emu-rhs>
+</emu-production>
+</emu-grammar>
+</emu-clause></div></body>

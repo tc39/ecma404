@@ -1,0 +1,112 @@
+<!doctype html><html lang="en-GB">
+<head><meta name="viewport" content="width=device-width, initial-scale=1"><meta charset="utf-8">
+<link rel="icon" href="../img/favicon.ico">
+<title>The JSON Data Interchange Syntax</title><script src="../assets/js/multipage.js?cache=0gTPsLwO" defer=""></script><script src="../assets/js/ecmarkup.js?cache=Qm2xQ9sG" defer=""></script><link rel="stylesheet" href="../assets/css/ecmarkup.css"><link rel="stylesheet" href="../assets/css/print.css" media="print"><style>
+    @media print {
+      @page :left {
+        @bottom-right {
+          content: '© Ecma International 2017';
+        }
+      }
+      @page :right {
+        @bottom-left {
+          content: '© Ecma International 2017';
+        }
+      }
+      @page :first {
+        @bottom-left {
+          content: '';
+        }
+        @bottom-right {
+          content: '';
+        }
+      }
+      @page :blank {
+        @bottom-left {
+          content: '';
+        }
+        @bottom-right {
+          content: '';
+        }
+      }
+    }
+    </style><style>
+      @import url("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/base16/solarized-light.min.css");
+      @import url("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/a11y-dark.min.css") (prefers-color-scheme: dark);
+    </style><link rel="canonical" href="../#sec-numbers"></head>
+<body><div id="menu"><div id="menu-search"><input type="text" id="menu-search-box" placeholder="Search..."><div id="menu-search-results" class="inactive"></div></div><div id="menu-pins"><div class="menu-pane-header">Pins<button class="unpin-all">clear</button></div><ul id="menu-pins-list"></ul></div><div class="menu-pane-header">Table of Contents</div><div id="menu-toc"><ol class="toc"><li><span class="item-toggle-none"></span><a href="./#sec-intro" title="Introduction">Introduction</a></li><li><span class="item-toggle-none"></span><a href="scope.html#sec-scope" title="Scope"><span class="secnum">1</span> Scope</a></li><li><span class="item-toggle-none"></span><a href="conformance.html#sec-conformance" title="Conformance"><span class="secnum">2</span> Conformance</a></li><li><span class="item-toggle-none"></span><a href="normative-references.html#sec-normative-references" title="Normative References"><span class="secnum">3</span> Normative References</a></li><li><span class="item-toggle-none"></span><a href="json-text.html#sec-json-text" title="JSON Text"><span class="secnum">4</span> JSON Text</a></li><li><span class="item-toggle-none"></span><a href="json-values.html#sec-json-values" title="JSON Values"><span class="secnum">5</span> JSON Values</a></li><li><span class="item-toggle-none"></span><a href="objects.html#sec-objects" title="Objects"><span class="secnum">6</span> Objects</a></li><li><span class="item-toggle-none"></span><a href="arrays.html#sec-arrays" title="Arrays"><span class="secnum">7</span> Arrays</a></li><li><span class="item-toggle-none"></span><a href="numbers.html#sec-numbers" title="Numbers"><span class="secnum">8</span> Numbers</a></li><li><span class="item-toggle-none"></span><a href="strings.html#sec-strings" title="Strings"><span class="secnum">9</span> Strings</a></li><li><span class="item-toggle-none"></span><a href="bibliography.html#sec-bibliography" title="Bibliography"><span class="secnum">Annex A <span class="annex-kind">(informative)</span></span> Bibliography</a></li><li><span class="item-toggle-none"></span><a href="copyright-and-software-license.html#sec-copyright-and-software-license" title="Copyright &amp; Software License">Copyright &amp; Software License</a></li></ol></div></div>
+<div id="menu-spacer" class="menu-spacer"></div>
+<div id="menu-toggle"><svg xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%; stroke:currentColor" viewBox="0 0 120 120" width="54" height="54">
+      <title>Menu</title>
+      <path stroke-width="10" stroke-linecap="round" d="M30,60 h60  M30,30 m0,5 h60  M30,90 m0,-5 h60"></path>
+    </svg></div>
+<div id="shortcuts-help">
+<ul>
+  <li><span>Toggle shortcuts help</span><code>?</code></li>
+  <li><span>Toggle "can call user code" annotations</span><code>u</code></li>
+<li><span>Navigate to/from multipage</span><code>m</code></li>
+  <li><span>Jump to search box</span><code>/</code></li>
+  <li><span>Toggle pinning of the current clause</span><code>p</code></li>
+  <li><span>Jump to the <i>n</i><sup>th</sup> pin</span><code>1-9</code></li>
+  <li><span>Jump to the 10<sup>th</sup> pin</span><code>0</code></li>
+  <li><span>Jump to the most recent link target</span><code>`</code></li>
+</ul></div><div id='spec-container'><emu-clause id="sec-numbers">
+  <h1><span class="secnum">8</span> Numbers</h1>
+  <p>A number is a sequence of decimal digits with no superfluous leading zero. It may have a preceding minus sign (U+002D). It may have a fractional part prefixed by a decimal point (U+002E). It may have an exponent, prefixed by <code>e</code> (U+0065) or <code>E</code> (U+0045) and optionally <code>+</code> (U+002B) or <code>-</code> (U+002D). The digits are the code points U+0030 through U+0039.</p>
+  <emu-figure id="figure-number" caption="number"><figure><figcaption>Figure 4: number</figcaption>
+    <img src="../img/number.svg" alt="Railroad diagram for JSON number">
+  </figure></emu-figure>
+  <emu-grammar type="definition"><emu-production name="JSONNumber" id="prod-JSONNumber">
+    <emu-nt><a href="numbers.html#prod-JSONNumber">JSONNumber</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="rb2mjvu0">
+        <emu-t optional="">-<emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-t>
+        <emu-nt id="_ref_14"><a href="numbers.html#prod-JSONInteger">JSONInteger</a></emu-nt>
+        <emu-nt optional="" id="_ref_15"><a href="numbers.html#prod-JSONFraction">JSONFraction</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt>
+        <emu-nt optional="" id="_ref_16"><a href="numbers.html#prod-JSONExponent">JSONExponent</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt>
+    </emu-rhs>
+</emu-production>
+<emu-production name="JSONInteger" id="prod-JSONInteger">
+    <emu-nt><a href="numbers.html#prod-JSONInteger">JSONInteger</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="ulmkmvlx">
+        <emu-t>0</emu-t>
+    </emu-rhs>
+    <emu-rhs a="7szd9zsw">
+        <emu-nt id="_ref_17"><a href="numbers.html#prod-NonZeroDigit">NonZeroDigit</a></emu-nt>
+        <emu-nt optional="" id="_ref_18"><a href="numbers.html#prod-JSONDigits">JSONDigits</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt>
+    </emu-rhs>
+</emu-production>
+<emu-production name="JSONFraction" id="prod-JSONFraction">
+    <emu-nt><a href="numbers.html#prod-JSONFraction">JSONFraction</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="fftnpfc6">
+        <emu-t>.</emu-t>
+        <emu-nt id="_ref_19"><a href="numbers.html#prod-JSONDigits">JSONDigits</a></emu-nt>
+    </emu-rhs>
+</emu-production>
+<emu-production name="JSONExponent" id="prod-JSONExponent">
+    <emu-nt><a href="numbers.html#prod-JSONExponent">JSONExponent</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="bpzxhtb1">
+        <emu-nt id="_ref_20"><a href="numbers.html#prod-JSONExponentIndicator">JSONExponentIndicator</a></emu-nt>
+        <emu-nt optional="" id="_ref_21"><a href="numbers.html#prod-JSONSign">JSONSign</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt>
+        <emu-nt id="_ref_22"><a href="numbers.html#prod-JSONDigits">JSONDigits</a></emu-nt>
+    </emu-rhs>
+</emu-production>
+<emu-production name="JSONExponentIndicator" oneof="" id="prod-JSONExponentIndicator">
+    <emu-nt><a href="numbers.html#prod-JSONExponentIndicator">JSONExponentIndicator</a></emu-nt> <emu-geq>:</emu-geq> <emu-oneof>one of</emu-oneof> <emu-rhs><emu-t>e</emu-t> <emu-t>E</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="JSONSign" oneof="" id="prod-JSONSign">
+    <emu-nt><a href="numbers.html#prod-JSONSign">JSONSign</a></emu-nt> <emu-geq>:</emu-geq> <emu-oneof>one of</emu-oneof> <emu-rhs><emu-t>+</emu-t> <emu-t>-</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="JSONDigits" id="prod-JSONDigits">
+    <emu-nt><a href="numbers.html#prod-JSONDigits">JSONDigits</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="gxyxpmjn">
+        <emu-nt id="_ref_23"><a href="numbers.html#prod-JSONDigit">JSONDigit</a></emu-nt>
+    </emu-rhs>
+    <emu-rhs a="oqvv8epb">
+        <emu-nt id="_ref_24"><a href="numbers.html#prod-JSONDigits">JSONDigits</a></emu-nt>
+        <emu-nt id="_ref_25"><a href="numbers.html#prod-JSONDigit">JSONDigit</a></emu-nt>
+    </emu-rhs>
+</emu-production>
+<emu-production name="JSONDigit" oneof="" id="prod-JSONDigit">
+    <emu-nt><a href="numbers.html#prod-JSONDigit">JSONDigit</a></emu-nt> <emu-geq>:</emu-geq> <emu-oneof>one of</emu-oneof> <emu-rhs><emu-t>0</emu-t> <emu-t>1</emu-t> <emu-t>2</emu-t> <emu-t>3</emu-t> <emu-t>4</emu-t> <emu-t>5</emu-t> <emu-t>6</emu-t> <emu-t>7</emu-t> <emu-t>8</emu-t> <emu-t>9</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="NonZeroDigit" oneof="" id="prod-NonZeroDigit">
+    <emu-nt><a href="numbers.html#prod-NonZeroDigit">NonZeroDigit</a></emu-nt> <emu-geq>:</emu-geq> <emu-oneof>one of</emu-oneof> <emu-rhs><emu-t>1</emu-t> <emu-t>2</emu-t> <emu-t>3</emu-t> <emu-t>4</emu-t> <emu-t>5</emu-t> <emu-t>6</emu-t> <emu-t>7</emu-t> <emu-t>8</emu-t> <emu-t>9</emu-t></emu-rhs>
+</emu-production>
+</emu-grammar>
+  <p>Numeric values that cannot be represented as sequences of digits (such as Infinity and NaN) are not permitted.</p>
+</emu-clause></div></body>

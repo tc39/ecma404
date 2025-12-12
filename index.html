@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en-GB"><head><meta name="viewport" content="width=device-width, initial-scale=1"><meta charset="utf-8">
+<link rel="icon" href="img/favicon.ico">
+<title>The JSON Data Interchange Syntax</title><script src="assets/js/ecmarkup.js?cache=Qm2xQ9sG" defer=""></script><link rel="stylesheet" href="assets/css/ecmarkup.css"><link rel="stylesheet" href="assets/css/print.css" media="print"><style>
+    @media print {
+      @page :left {
+        @bottom-right {
+          content: '© Ecma International 2017';
+        }
+      }
+      @page :right {
+        @bottom-left {
+          content: '© Ecma International 2017';
+        }
+      }
+      @page :first {
+        @bottom-left {
+          content: '';
+        }
+        @bottom-right {
+          content: '';
+        }
+      }
+      @page :blank {
+        @bottom-left {
+          content: '';
+        }
+        @bottom-right {
+          content: '';
+        }
+      }
+    }
+    </style><style>
+      @import url("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/base16/solarized-light.min.css");
+      @import url("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/a11y-dark.min.css") (prefers-color-scheme: dark);
+    </style></head><body><div id="shortcuts-help">
+<ul>
+  <li><span>Toggle shortcuts help</span><code>?</code></li>
+  <li><span>Toggle "can call user code" annotations</span><code>u</code></li>
+<li><span>Navigate to/from multipage</span><code>m</code></li>
+  <li><span>Jump to search box</span><code>/</code></li>
+  <li><span>Toggle pinning of the current clause</span><code>p</code></li>
+  <li><span>Jump to the <i>n</i><sup>th</sup> pin</span><code>1-9</code></li>
+  <li><span>Jump to the 10<sup>th</sup> pin</span><code>0</code></li>
+  <li><span>Jump to the most recent link target</span><code>`</code></li>
+</ul></div><div id="menu-toggle"><svg xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%; stroke:currentColor" viewBox="0 0 120 120" width="54" height="54">
+      <title>Menu</title>
+      <path stroke-width="10" stroke-linecap="round" d="M30,60 h60  M30,30 m0,5 h60  M30,90 m0,-5 h60"></path>
+    </svg></div><div id="menu-spacer" class="menu-spacer"></div><div id="menu"><div id="menu-search"><input type="text" id="menu-search-box" placeholder="Search..."><div id="menu-search-results" class="inactive"></div></div><div id="menu-pins"><div class="menu-pane-header">Pins<button class="unpin-all">clear</button></div><ul id="menu-pins-list"></ul></div><div class="menu-pane-header">Table of Contents</div><div id="menu-toc"><ol class="toc"><li><span class="item-toggle-none"></span><a href="#sec-intro" title="Introduction">Introduction</a></li><li><span class="item-toggle-none"></span><a href="#sec-scope" title="Scope"><span class="secnum">1</span> Scope</a></li><li><span class="item-toggle-none"></span><a href="#sec-conformance" title="Conformance"><span class="secnum">2</span> Conformance</a></li><li><span class="item-toggle-none"></span><a href="#sec-normative-references" title="Normative References"><span class="secnum">3</span> Normative References</a></li><li><span class="item-toggle-none"></span><a href="#sec-json-text" title="JSON Text"><span class="secnum">4</span> JSON Text</a></li><li><span class="item-toggle-none"></span><a href="#sec-json-values" title="JSON Values"><span class="secnum">5</span> JSON Values</a></li><li><span class="item-toggle-none"></span><a href="#sec-objects" title="Objects"><span class="secnum">6</span> Objects</a></li><li><span class="item-toggle-none"></span><a href="#sec-arrays" title="Arrays"><span class="secnum">7</span> Arrays</a></li><li><span class="item-toggle-none"></span><a href="#sec-numbers" title="Numbers"><span class="secnum">8</span> Numbers</a></li><li><span class="item-toggle-none"></span><a href="#sec-strings" title="Strings"><span class="secnum">9</span> Strings</a></li><li><span class="item-toggle-none"></span><a href="#sec-bibliography" title="Bibliography"><span class="secnum">Annex A <span class="annex-kind">(informative)</span></span> Bibliography</a></li><li><span class="item-toggle-none"></span><a href="#sec-copyright-and-software-license" title="Copyright &amp; Software License">Copyright &amp; Software License</a></li></ol></div></div><div id="spec-container"><h1 class="title">The JSON Data Interchange Syntax</h1>
+<p><img src="img/ecma-logo.svg" id="ecma-logo" alt="Ecma International logo"></p>
+<style>
+  #ecma-logo {
+    width: 500px;
+  }
+</style>
+
+<emu-intro id="sec-intro">
+  <h1>Introduction</h1>
+  <p>JSON is a text syntax that facilitates structured data interchange between all programming languages. JSON is a syntax of braces, brackets, colons, and commas that is useful in many contexts, profiles, and applications. JSON stands for JavaScript Object Notation and was inspired by the object literals of JavaScript aka ECMAScript as defined in the ECMAScript Language Specification, Third Edition. However, it does not attempt to impose ECMAScript's internal data representations on other programming languages. Instead, it shares a small subset of ECMAScript's syntax with all other programming languages. The JSON syntax is not a specification of a complete data interchange. Meaningful data interchange requires agreement between a producer and consumer on the semantics attached to a particular use of the JSON syntax. What JSON does provide is the syntactic framework to which such semantics can be attached.</p>
+  <p>JSON syntax describes a sequence of Unicode code points. JSON also depends on Unicode in the hex numbers used in the <code>\u</code> escapement notation.</p>
+  <p>JSON is agnostic about the semantics of numbers. In any programming language, there can be a variety of number types of various capacities and complements, fixed or floating, binary or decimal. That can make interchange between different programming languages difficult. JSON instead offers only the representation of numbers that humans use: a sequence of digits. All programming languages know how to make sense of digit sequences even if they disagree on internal representations. That is enough to allow interchange.</p>
+  <p>Programming languages vary widely on whether they support objects, and if so, what characteristics and constraints the objects offer. The models of object systems can be wildly divergent and are continuing to evolve. JSON instead provides a simple notation for expressing collections of name/value pairs. Most programming languages will have some feature for representing such collections, which can go by names like record, struct, dict, map, hash, or object.</p>
+  <p>JSON also provides support for ordered lists of values. All programming languages will have some feature for representing such lists, which can go by names like array, vector, or list. Because objects and arrays can nest, trees and other complex data structures can be represented. By accepting JSON's simple convention, complex data structures can be easily interchanged between incompatible programming languages.</p>
+  <p>JSON does not support cyclic graphs, at least not directly. JSON is not indicated for applications requiring binary data.</p>
+  <p>It is expected that other standards will refer to this one, strictly adhering to the JSON syntax, while imposing semantics interpretation and restrictions on various encoding details. Such standards may require specific behaviours. JSON itself specifies no behaviour.</p>
+  <p>Because it is so simple, it is not expected that the JSON grammar will ever change. This gives JSON, as a foundational notation, tremendous stability.</p>
+  <p>JSON was first presented to the world at the JSON.org website in 2001. A definition of the JSON syntax was subsequently published as IETF RFC 4627 in July 2006. ECMA-262, Fifth Edition (2009) included a normative specification of the JSON grammar. This specification, ECMA-404, replaces those earlier definitions of the JSON syntax. Concurrently, the IETF published RFC 7158/7159 and in 2017 RFC 8259 as updates to RFC 4627. The JSON syntax specified by this specification and by RFC 8259 are intended to be identical.</p>
+  <emu-note><span class="note">Note</span><div class="note-contents">
+    <p>JSON is pronounced /ˈdʒeɪ.sən/, as in "Jason and The Argonauts".</p>
+  </div></emu-note>
+</emu-intro>
+
+<emu-clause id="sec-scope">
+  <h1><span class="secnum">1</span> Scope</h1>
+  <p>JSON is a lightweight, text-based, language-independent syntax for defining data interchange formats. It was derived from the ECMAScript programming language, but is programming language independent. JSON defines a small set of structuring rules for the portable representation of structured data.</p>
+  <p>The goal of this specification is only to define the syntax of valid JSON texts. Its intent is not to provide any semantics or interpretation of text conforming to that syntax. It also intentionally does not define how a valid JSON text might be internalized into the data structures of a programming language. There are many possible semantics that could be applied to the JSON syntax and many ways that a JSON text can be processed or mapped by a programming language. Meaningful interchange of information using JSON requires agreement among the involved parties on the specific semantics to be applied. Defining specific semantic interpretations of JSON is potentially a topic for other specifications. Similarly, language mappings of JSON can also be independently specified. For example, ECMA-262 defines mappings between valid JSON texts and ECMAScript's runtime data structures.</p>
+</emu-clause>
+
+<emu-clause id="sec-conformance">
+  <h1><span class="secnum">2</span> Conformance</h1>
+  <p>A conforming JSON text is a sequence of Unicode code points that strictly conforms to the JSON grammar defined by this specification.</p>
+  <p>A conforming processor of JSON texts should not accept any inputs that are not conforming JSON texts. A conforming processor may impose semantic restrictions that limit the set of conforming JSON texts that it will process.</p>
+</emu-clause>
+
+<emu-clause id="sec-normative-references">
+  <h1><span class="secnum">3</span> Normative References</h1>
+  <p>The following referenced documents are indispensable for the application of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+  <p>ISO/IEC 10646, <i>Information Technology - Universal Coded Character Set (UCS)</i></p>
+  <p>
+    The Unicode Consortium. The Unicode Standard<br>
+    <a href="https://www.unicode.org/versions/latest">https://www.unicode.org/versions/latest</a>
+  </p>
+  <p>
+    Bray, T., Ed. "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259.<br>
+    <a href="https://www.rfc-editor.org/rfc/rfc8259">https://www.rfc-editor.org/rfc/rfc8259</a>
+  </p>
+  <p>This specification and RFC 8259 both provide specifications of the JSON grammar but do so using different formalisms. The intent is that both specifications define the same syntactic language. If a difference is found between them, Ecma International and the IETF will work together to update both documents. If an error is found with either document, the other should be examined to see if it has a similar error, and fixed if possible. If either document is changed in the future, Ecma International and the IETF will work together to ensure that the two documents stay aligned through the change. RFC 8259 also defines various semantic restrictions on the use of the JSON syntax. Those restrictions are not normative for this specification.</p>
+</emu-clause>
+
+<emu-clause id="sec-json-text">
+  <h1><span class="secnum">4</span> JSON Text</h1>
+  <p>A JSON text is a sequence of tokens formed from Unicode code points that conforms to the JSON value grammar. The set of tokens includes six structural tokens, strings, numbers, and three literal name tokens.</p>
+  <p>The six structural tokens:</p>
+  <emu-table id="table-structural-tokens" caption="Structural Tokens"><figure><figcaption>Table 1: Structural Tokens</figcaption>
+    <table>
+      <thead>
+        <tr>
+          <th>Token</th>
+          <th>Code Point</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>[</code></td>
+          <td>U+005B</td>
+          <td>left square bracket</td>
+        </tr>
+        <tr>
+          <td><code>{</code></td>
+          <td>U+007B</td>
+          <td>left curly bracket</td>
+        </tr>
+        <tr>
+          <td><code>]</code></td>
+          <td>U+005D</td>
+          <td>right square bracket</td>
+        </tr>
+        <tr>
+          <td><code>}</code></td>
+          <td>U+007D</td>
+          <td>right curly bracket</td>
+        </tr>
+        <tr>
+          <td><code>:</code></td>
+          <td>U+003A</td>
+          <td>colon</td>
+        </tr>
+        <tr>
+          <td><code>,</code></td>
+          <td>U+002C</td>
+          <td>comma</td>
+        </tr>
+      </tbody>
+    </table>
+  </figure></emu-table>
+  <p>These are the three literal name tokens:</p>
+  <emu-table id="table-literal-tokens" caption="Literal Name Tokens"><figure><figcaption>Table 2: Literal Name Tokens</figcaption>
+    <table>
+      <thead>
+        <tr>
+          <th>Token</th>
+          <th>Code Points</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>true</code></td>
+          <td>U+0074 U+0072 U+0075 U+0065</td>
+        </tr>
+        <tr>
+          <td><code>false</code></td>
+          <td>U+0066 U+0061 U+006C U+0073 U+0065</td>
+        </tr>
+        <tr>
+          <td><code>null</code></td>
+          <td>U+006E U+0075 U+006C U+006C</td>
+        </tr>
+      </tbody>
+    </table>
+  </figure></emu-table>
+  <p>Insignificant whitespace is allowed before or after any token. Whitespace is any sequence of one or more of the following code points: character tabulation (U+0009), line feed (U+000A), carriage return (U+000D), and space (U+0020). Whitespace is not allowed within any token, except that space is allowed in strings.</p>
+</emu-clause>
+
+<emu-clause id="sec-json-values">
+  <h1><span class="secnum">5</span> JSON Values</h1>
+  <p>A JSON value can be an object, array, number, string, <code>true</code>, <code>false</code>, or <code>null</code>.</p>
+  <emu-figure id="figure-value" caption="value"><figure><figcaption>Figure 1: value</figcaption>
+    <img src="img/value.svg" alt="Railroad diagram for JSON value">
+  </figure></emu-figure>
+  <emu-grammar type="definition"><emu-production name="JSONValue" id="prod-JSONValue">
+    <emu-nt><a href="#prod-JSONValue">JSONValue</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="rrf73gn0">
+        <emu-nt id="_ref_0"><a href="#prod-JSONObject">JSONObject</a></emu-nt>
+    </emu-rhs>
+    <emu-rhs a="43qxqymn">
+        <emu-nt id="_ref_1"><a href="#prod-JSONArray">JSONArray</a></emu-nt>
+    </emu-rhs>
+    <emu-rhs a="ruuilnvb">
+        <emu-nt id="_ref_2"><a href="#prod-JSONNumber">JSONNumber</a></emu-nt>
+    </emu-rhs>
+    <emu-rhs a="wlu5cgxu">
+        <emu-nt id="_ref_3"><a href="#prod-JSONString">JSONString</a></emu-nt>
+    </emu-rhs>
+    <emu-rhs a="-jc4xg27">
+        <emu-t>true</emu-t>
+    </emu-rhs>
+    <emu-rhs a="i9lgnxtt">
+        <emu-t>false</emu-t>
+    </emu-rhs>
+    <emu-rhs a="d7uiab7a">
+        <emu-t>null</emu-t>
+    </emu-rhs>
+</emu-production>
+</emu-grammar>
+</emu-clause>
+
+<emu-clause id="sec-objects">
+  <h1><span class="secnum">6</span> Objects</h1>
+  <p>An object structure is represented as a pair of curly bracket tokens surrounding zero or more name/value pairs. A name is a string. A single colon token follows each name, separating the name from the value. A single comma token separates a value from a following name. The JSON syntax does not impose any restrictions on the strings used as names, does not require that name strings be unique, and does not assign any significance to the ordering of name/value pairs. These are all semantic considerations that may be defined by JSON processors or in specifications defining specific uses of JSON for data interchange.</p>
+  <emu-figure id="figure-object" caption="object"><figure><figcaption>Figure 2: object</figcaption>
+    <img src="img/object.svg" alt="Railroad diagram for JSON object">
+  </figure></emu-figure>
+  <emu-grammar type="definition"><emu-production name="JSONObject" id="prod-JSONObject">
+    <emu-nt><a href="#prod-JSONObject">JSONObject</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="gbpaspne">
+        <emu-t>{</emu-t>
+        <emu-t>}</emu-t>
+    </emu-rhs>
+    <emu-rhs a="yfunnjma">
+        <emu-t>{</emu-t>
+        <emu-nt id="_ref_4"><a href="#prod-JSONMemberList">JSONMemberList</a></emu-nt>
+        <emu-t>}</emu-t>
+    </emu-rhs>
+</emu-production>
+<emu-production name="JSONMemberList" id="prod-JSONMemberList">
+    <emu-nt><a href="#prod-JSONMemberList">JSONMemberList</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="rek1fopx">
+        <emu-nt id="_ref_5"><a href="#prod-JSONMember">JSONMember</a></emu-nt>
+    </emu-rhs>
+    <emu-rhs a="y2voqlk8">
+        <emu-nt id="_ref_6"><a href="#prod-JSONMemberList">JSONMemberList</a></emu-nt>
+        <emu-t>,</emu-t>
+        <emu-nt id="_ref_7"><a href="#prod-JSONMember">JSONMember</a></emu-nt>
+    </emu-rhs>
+</emu-production>
+<emu-production name="JSONMember" id="prod-JSONMember">
+    <emu-nt><a href="#prod-JSONMember">JSONMember</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="pu1emm0s">
+        <emu-nt id="_ref_8"><a href="#prod-JSONString">JSONString</a></emu-nt>
+        <emu-t>:</emu-t>
+        <emu-nt id="_ref_9"><a href="#prod-JSONValue">JSONValue</a></emu-nt>
+    </emu-rhs>
+</emu-production>
+</emu-grammar>
+</emu-clause>
+
+<emu-clause id="sec-arrays">
+  <h1><span class="secnum">7</span> Arrays</h1>
+  <p>An array structure is a pair of square bracket tokens surrounding zero or more values. The values are separated by commas. The JSON syntax does not define any specific meaning to the ordering of the values. However, the JSON array structure is often used in situations where there is some semantics to the ordering.</p>
+  <emu-figure id="figure-array" caption="array"><figure><figcaption>Figure 3: array</figcaption>
+    <img src="img/array.svg" alt="Railroad diagram for JSON array">
+  </figure></emu-figure>
+  <emu-grammar type="definition"><emu-production name="JSONArray" id="prod-JSONArray">
+    <emu-nt><a href="#prod-JSONArray">JSONArray</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="mdhsnk3i">
+        <emu-t>[</emu-t>
+        <emu-t>]</emu-t>
+    </emu-rhs>
+    <emu-rhs a="lz4zskjx">
+        <emu-t>[</emu-t>
+        <emu-nt id="_ref_10"><a href="#prod-JSONElementList">JSONElementList</a></emu-nt>
+        <emu-t>]</emu-t>
+    </emu-rhs>
+</emu-production>
+<emu-production name="JSONElementList" id="prod-JSONElementList">
+    <emu-nt><a href="#prod-JSONElementList">JSONElementList</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="dwr7ly96">
+        <emu-nt id="_ref_11"><a href="#prod-JSONValue">JSONValue</a></emu-nt>
+    </emu-rhs>
+    <emu-rhs a="i4irmhsv">
+        <emu-nt id="_ref_12"><a href="#prod-JSONElementList">JSONElementList</a></emu-nt>
+        <emu-t>,</emu-t>
+        <emu-nt id="_ref_13"><a href="#prod-JSONValue">JSONValue</a></emu-nt>
+    </emu-rhs>
+</emu-production>
+</emu-grammar>
+</emu-clause>
+
+<emu-clause id="sec-numbers">
+  <h1><span class="secnum">8</span> Numbers</h1>
+  <p>A number is a sequence of decimal digits with no superfluous leading zero. It may have a preceding minus sign (U+002D). It may have a fractional part prefixed by a decimal point (U+002E). It may have an exponent, prefixed by <code>e</code> (U+0065) or <code>E</code> (U+0045) and optionally <code>+</code> (U+002B) or <code>-</code> (U+002D). The digits are the code points U+0030 through U+0039.</p>
+  <emu-figure id="figure-number" caption="number"><figure><figcaption>Figure 4: number</figcaption>
+    <img src="img/number.svg" alt="Railroad diagram for JSON number">
+  </figure></emu-figure>
+  <emu-grammar type="definition"><emu-production name="JSONNumber" id="prod-JSONNumber">
+    <emu-nt><a href="#prod-JSONNumber">JSONNumber</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="rb2mjvu0">
+        <emu-t optional="">-<emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-t>
+        <emu-nt id="_ref_14"><a href="#prod-JSONInteger">JSONInteger</a></emu-nt>
+        <emu-nt optional="" id="_ref_15"><a href="#prod-JSONFraction">JSONFraction</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt>
+        <emu-nt optional="" id="_ref_16"><a href="#prod-JSONExponent">JSONExponent</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt>
+    </emu-rhs>
+</emu-production>
+<emu-production name="JSONInteger" id="prod-JSONInteger">
+    <emu-nt><a href="#prod-JSONInteger">JSONInteger</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="ulmkmvlx">
+        <emu-t>0</emu-t>
+    </emu-rhs>
+    <emu-rhs a="7szd9zsw">
+        <emu-nt id="_ref_17"><a href="#prod-NonZeroDigit">NonZeroDigit</a></emu-nt>
+        <emu-nt optional="" id="_ref_18"><a href="#prod-JSONDigits">JSONDigits</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt>
+    </emu-rhs>
+</emu-production>
+<emu-production name="JSONFraction" id="prod-JSONFraction">
+    <emu-nt><a href="#prod-JSONFraction">JSONFraction</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="fftnpfc6">
+        <emu-t>.</emu-t>
+        <emu-nt id="_ref_19"><a href="#prod-JSONDigits">JSONDigits</a></emu-nt>
+    </emu-rhs>
+</emu-production>
+<emu-production name="JSONExponent" id="prod-JSONExponent">
+    <emu-nt><a href="#prod-JSONExponent">JSONExponent</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="bpzxhtb1">
+        <emu-nt id="_ref_20"><a href="#prod-JSONExponentIndicator">JSONExponentIndicator</a></emu-nt>
+        <emu-nt optional="" id="_ref_21"><a href="#prod-JSONSign">JSONSign</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt>
+        <emu-nt id="_ref_22"><a href="#prod-JSONDigits">JSONDigits</a></emu-nt>
+    </emu-rhs>
+</emu-production>
+<emu-production name="JSONExponentIndicator" oneof="" id="prod-JSONExponentIndicator">
+    <emu-nt><a href="#prod-JSONExponentIndicator">JSONExponentIndicator</a></emu-nt> <emu-geq>:</emu-geq> <emu-oneof>one of</emu-oneof> <emu-rhs><emu-t>e</emu-t> <emu-t>E</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="JSONSign" oneof="" id="prod-JSONSign">
+    <emu-nt><a href="#prod-JSONSign">JSONSign</a></emu-nt> <emu-geq>:</emu-geq> <emu-oneof>one of</emu-oneof> <emu-rhs><emu-t>+</emu-t> <emu-t>-</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="JSONDigits" id="prod-JSONDigits">
+    <emu-nt><a href="#prod-JSONDigits">JSONDigits</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="gxyxpmjn">
+        <emu-nt id="_ref_23"><a href="#prod-JSONDigit">JSONDigit</a></emu-nt>
+    </emu-rhs>
+    <emu-rhs a="oqvv8epb">
+        <emu-nt id="_ref_24"><a href="#prod-JSONDigits">JSONDigits</a></emu-nt>
+        <emu-nt id="_ref_25"><a href="#prod-JSONDigit">JSONDigit</a></emu-nt>
+    </emu-rhs>
+</emu-production>
+<emu-production name="JSONDigit" oneof="" id="prod-JSONDigit">
+    <emu-nt><a href="#prod-JSONDigit">JSONDigit</a></emu-nt> <emu-geq>:</emu-geq> <emu-oneof>one of</emu-oneof> <emu-rhs><emu-t>0</emu-t> <emu-t>1</emu-t> <emu-t>2</emu-t> <emu-t>3</emu-t> <emu-t>4</emu-t> <emu-t>5</emu-t> <emu-t>6</emu-t> <emu-t>7</emu-t> <emu-t>8</emu-t> <emu-t>9</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="NonZeroDigit" oneof="" id="prod-NonZeroDigit">
+    <emu-nt><a href="#prod-NonZeroDigit">NonZeroDigit</a></emu-nt> <emu-geq>:</emu-geq> <emu-oneof>one of</emu-oneof> <emu-rhs><emu-t>1</emu-t> <emu-t>2</emu-t> <emu-t>3</emu-t> <emu-t>4</emu-t> <emu-t>5</emu-t> <emu-t>6</emu-t> <emu-t>7</emu-t> <emu-t>8</emu-t> <emu-t>9</emu-t></emu-rhs>
+</emu-production>
+</emu-grammar>
+  <p>Numeric values that cannot be represented as sequences of digits (such as Infinity and NaN) are not permitted.</p>
+</emu-clause>
+
+<emu-clause id="sec-strings">
+  <h1><span class="secnum">9</span> Strings</h1>
+  <p>A string is a sequence of Unicode code points wrapped with quotation marks (U+0022). All code points may be placed within the quotation marks except for the code points that must be escaped: quotation mark (U+0022), reverse solidus (U+005C), and the control characters U+0000 to U+001F. There are two-character escape sequence representations of some characters.</p>
+  <emu-table id="table-escape-sequences" caption="Escape Sequences"><figure><figcaption>Table 3: Escape Sequences</figcaption>
+    <table>
+      <thead>
+        <tr>
+          <th>Escape Sequence</th>
+          <th>Represents</th>
+          <th>Code Point</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>\"</code></td>
+          <td>quotation mark</td>
+          <td>U+0022</td>
+        </tr>
+        <tr>
+          <td><code>\\</code></td>
+          <td>reverse solidus</td>
+          <td>U+005C</td>
+        </tr>
+        <tr>
+          <td><code>\/</code></td>
+          <td>solidus</td>
+          <td>U+002F</td>
+        </tr>
+        <tr>
+          <td><code>\b</code></td>
+          <td>backspace</td>
+          <td>U+0008</td>
+        </tr>
+        <tr>
+          <td><code>\f</code></td>
+          <td>form feed</td>
+          <td>U+000C</td>
+        </tr>
+        <tr>
+          <td><code>\n</code></td>
+          <td>line feed</td>
+          <td>U+000A</td>
+        </tr>
+        <tr>
+          <td><code>\r</code></td>
+          <td>carriage return</td>
+          <td>U+000D</td>
+        </tr>
+        <tr>
+          <td><code>\t</code></td>
+          <td>character tabulation</td>
+          <td>U+0009</td>
+        </tr>
+      </tbody>
+    </table>
+  </figure></emu-table>
+  <p>So, for example, a string containing only a single reverse solidus character may be represented as <code>"\\"</code>.</p>
+  <p>Any code point may be represented as a hexadecimal escape sequence. The meaning of such a hexadecimal number is determined by ISO/IEC 10646. If the code point is in the Basic Multilingual Plane (U+0000 through U+FFFF), then it may be represented as a six-character sequence: a reverse solidus, followed by the lowercase letter <code>u</code>, followed by four hexadecimal digits that encode the code point. Hexadecimal digits can be digits (U+0030 through U+0039) or the hexadecimal letters <code>A</code> through <code>F</code> in uppercase (U+0041 through U+0046) or lowercase (U+0061 through U+0066). So, for example, a string containing only a single reverse solidus character may be represented as <code>"\u005C"</code> .</p>
+  <p>The following four cases all produce the same result:</p>
+  <ul>
+    <li><code>"\u002F"</code></li>
+    <li><code>"\u002f"</code></li>
+    <li><code>"\/"</code></li>
+    <li><code>"/"</code></li>
+  </ul>
+  <p>To escape a code point that is not in the Basic Multilingual Plane, the character may be represented as a twelve-character sequence, encoding the UTF-16 surrogate pair corresponding to the code point. So for example, a string containing only the G clef character (U+1D11E) may be represented as <code>"\uD834\uDD1E"</code>. However, whether a processor of JSON texts interprets such a surrogate pair as a single code point or as an explicit surrogate pair is a semantic decision that is determined by the specific processor.</p>
+  <emu-note><span class="note">Note</span><div class="note-contents">
+    <p>The JSON grammar permits code points for which Unicode does not currently provide character assignments.</p>
+  </div></emu-note>
+  <emu-figure id="figure-string" caption="string"><figure><figcaption>Figure 5: string</figcaption>
+    <img src="img/string.svg" alt="Railroad diagram for JSON string">
+  </figure></emu-figure>
+  <emu-grammar type="definition"><emu-production name="JSONString" id="prod-JSONString">
+    <emu-nt><a href="#prod-JSONString">JSONString</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="qkident3">
+        <emu-t>"</emu-t>
+        <emu-nt optional="" id="_ref_26"><a href="#prod-JSONStringCharacters">JSONStringCharacters</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt>
+        <emu-t>"</emu-t>
+    </emu-rhs>
+</emu-production>
+<emu-production name="JSONStringCharacters" id="prod-JSONStringCharacters">
+    <emu-nt><a href="#prod-JSONStringCharacters">JSONStringCharacters</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="1xhacxm2">
+        <emu-nt id="_ref_27"><a href="#prod-JSONStringCharacter">JSONStringCharacter</a></emu-nt>
+        <emu-nt optional="" id="_ref_28"><a href="#prod-JSONStringCharacters">JSONStringCharacters</a><emu-mods><emu-opt>opt</emu-opt></emu-mods></emu-nt>
+    </emu-rhs>
+</emu-production>
+<emu-production name="JSONStringCharacter" id="prod-JSONStringCharacter">
+    <emu-nt><a href="#prod-JSONStringCharacter">JSONStringCharacter</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="is2q64gk">
+        <emu-nt id="_ref_29"><a href="#prod-JSONSourceCharacter">JSONSourceCharacter</a></emu-nt> <emu-gmod>but not one of <emu-t>"</emu-t> or <emu-t>\</emu-t> or <emu-gprose>U+0000 through U+001F</emu-gprose></emu-gmod>
+    </emu-rhs>
+    <emu-rhs a="9fdgy-cz">
+        <emu-t>\</emu-t>
+        <emu-nt id="_ref_30"><a href="#prod-JSONEscapeSequence">JSONEscapeSequence</a></emu-nt>
+    </emu-rhs>
+</emu-production>
+<emu-production name="JSONEscapeSequence" id="prod-JSONEscapeSequence">
+    <emu-nt><a href="#prod-JSONEscapeSequence">JSONEscapeSequence</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="xmihj_hg">
+        <emu-nt id="_ref_31"><a href="#prod-JSONEscapeCharacter">JSONEscapeCharacter</a></emu-nt>
+    </emu-rhs>
+    <emu-rhs a="oji7vdjl">
+        <emu-t>u</emu-t>
+        <emu-nt id="_ref_32"><a href="#prod-JSONHexDigit">JSONHexDigit</a></emu-nt>
+        <emu-nt id="_ref_33"><a href="#prod-JSONHexDigit">JSONHexDigit</a></emu-nt>
+        <emu-nt id="_ref_34"><a href="#prod-JSONHexDigit">JSONHexDigit</a></emu-nt>
+        <emu-nt id="_ref_35"><a href="#prod-JSONHexDigit">JSONHexDigit</a></emu-nt>
+    </emu-rhs>
+</emu-production>
+<emu-production name="JSONEscapeCharacter" oneof="" id="prod-JSONEscapeCharacter">
+    <emu-nt><a href="#prod-JSONEscapeCharacter">JSONEscapeCharacter</a></emu-nt> <emu-geq>:</emu-geq> <emu-oneof>one of</emu-oneof> <emu-rhs><emu-t>"</emu-t> <emu-t>\</emu-t> <emu-t>/</emu-t> <emu-t>b</emu-t> <emu-t>f</emu-t> <emu-t>n</emu-t> <emu-t>r</emu-t> <emu-t>t</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="JSONHexDigit" oneof="" id="prod-JSONHexDigit">
+    <emu-nt><a href="#prod-JSONHexDigit">JSONHexDigit</a></emu-nt> <emu-geq>:</emu-geq> <emu-oneof>one of</emu-oneof> <emu-rhs><emu-t>0</emu-t> <emu-t>1</emu-t> <emu-t>2</emu-t> <emu-t>3</emu-t> <emu-t>4</emu-t> <emu-t>5</emu-t> <emu-t>6</emu-t> <emu-t>7</emu-t> <emu-t>8</emu-t> <emu-t>9</emu-t> <emu-t>a</emu-t> <emu-t>b</emu-t> <emu-t>c</emu-t> <emu-t>d</emu-t> <emu-t>e</emu-t> <emu-t>f</emu-t> <emu-t>A</emu-t> <emu-t>B</emu-t> <emu-t>C</emu-t> <emu-t>D</emu-t> <emu-t>E</emu-t> <emu-t>F</emu-t></emu-rhs>
+</emu-production>
+<emu-production name="JSONSourceCharacter" id="prod-JSONSourceCharacter">
+    <emu-nt><a href="#prod-JSONSourceCharacter">JSONSourceCharacter</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="xks4vqzw">
+        <emu-gprose>any Unicode code point</emu-gprose>
+    </emu-rhs>
+</emu-production>
+</emu-grammar>
+</emu-clause>
+
+<emu-annex id="sec-bibliography">
+  <h1><span class="secnum">Annex A <span class="annex-kind">(informative)</span></span> Bibliography</h1>
+  <ol>
+    <li>
+      ECMA-262, <i>ECMAScript Language Specification</i><br>
+      <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">https://www.ecma-international.org/publications-and-standards/standards/ecma-262/</a>
+    </li>
+    <li>
+      IETF RFC 8259, <i>The JavaScript Object Notation (JSON) Data Interchange Format</i><br>
+      <a href="https://www.rfc-editor.org/rfc/rfc8259">https://www.rfc-editor.org/rfc/rfc8259</a>
+    </li>
+  </ol>
+</emu-annex><emu-annex id="sec-copyright-and-software-license" back-matter="">
+        <h1>Copyright &amp; Software License</h1>
+        <p class="ECMAaddress">Ecma International</p>
+<p class="ECMAaddress">Rue du Rhone 114</p>
+<p class="ECMAaddress">CH-1204 Geneva</p>
+<p class="ECMAaddress">Tel: +41 22 849 6000</p>
+<p class="ECMAaddress">Fax: +41 22 849 6001</p>
+<p class="ECMAaddress">Web: <a href="https://ecma-international.org/">https://ecma-international.org/</a></p>
+
+        <div class="copyright-notice" id="copyright-notice"><h2>Copyright Notice</h2>
+<div class="alternative-copyright">
+  <p>ALTERNATIVE COPYRIGHT NOTICE AND COPYRIGHT LICENSE</p>
+
+  <p>© 2017 Ecma International</p>
+
+  <p>
+    By obtaining and/or copying this work, you (the licensee) agree that you
+    have read, understood, and will comply with the following terms and
+    conditions.
+  </p>
+
+  <p>
+    Permission under Ecma’s copyright to copy, modify, prepare derivative works
+    of, and distribute this work, with or without modification, for any purpose
+    and without fee or royalty is hereby granted, provided that you include the
+    following on ALL copies of the work or portions thereof, including
+    modifications:
+  </p>
+
+  <p>
+    (i) The full text of this COPYRIGHT NOTICE AND COPYRIGHT LICENSE in a location
+    viewable to users of the redistributed or derivative work.
+  </p>
+  <p>
+    (ii) Any pre-existing intellectual property disclaimers, notices, or terms and
+    conditions. If none exist, the Ecma alternative copyright notice should be
+    included.
+  </p>
+  <p>
+    (iii) Notice of any changes or modifications, through a copyright statement on
+    the document such as “This document includes material copied from or
+    derived from The JSON Data Interchange Syntax https://tc39.es/ecma404/.<br>
+    Copyright © Ecma International.”
+  </p>
+
+  <p><strong>Disclaimers</strong></p>
+
+  <p>
+    THIS WORK IS PROVIDED “AS IS,” AND COPYRIGHT HOLDERS MAKE NO REPRESENTATIONS
+    OR WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO, WARRANTIES
+    OF MERCHANTABILITY OR FITNESS FOR ANY PARTICULAR PURPOSE OR THAT THE USE OF
+    THE DOCUMENT WILL NOT INFRINGE ANY THIRD PARTY PATENTS, COPYRIGHTS,
+    TRADEMARKS OR OTHER RIGHTS.
+  </p>
+
+  <p>
+    COPYRIGHT HOLDERS WILL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL OR
+    CONSEQUENTIAL DAMAGES ARISING OUT OF ANY USE OF THE DOCUMENT.
+  </p>
+
+  <p>
+    The name and trademarks of copyright holders may NOT be used in advertising
+    or publicity pertaining to the work without specific, written prior
+    permission. Title to copyright in this work will at all times remain with
+    copyright holders.
+  </p>
+</div>
+</div>
+        <h2>Software License</h2>
+        <p>All Software contained in this document ("Software") is protected by copyright and is being made available under the "BSD License", included below. This Software may be subject to third party rights (rights from parties other than Ecma International), including patent rights, and no licenses under such third party rights are granted under this license even if the third party concerned is a member of Ecma International. SEE THE ECMA CODE OF CONDUCT IN PATENT MATTERS AVAILABLE AT <a href="https://ecma-international.org/memento/codeofconduct.htm">https://ecma-international.org/memento/codeofconduct.htm</a> FOR INFORMATION REGARDING THE LICENSING OF PATENT CLAIMS THAT ARE REQUIRED TO IMPLEMENT ECMA INTERNATIONAL STANDARDS.</p>
+
+<p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p>
+
+<ol>
+  <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
+  <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
+  <li>Neither the name of the authors nor Ecma International may be used to endorse or promote products derived from this software without specific prior written permission.</li>
+</ol>
+
+<p>THIS SOFTWARE IS PROVIDED BY THE ECMA INTERNATIONAL "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL ECMA INTERNATIONAL BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+
+      </emu-annex>
+
+</div></body></html>
