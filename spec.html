@@ -63,7 +63,7 @@
 
 <emu-clause id="sec-json-text">
   <h1>JSON Text</h1>
-  <p>A JSON text is a sequence of tokens formed from Unicode code points that conforms to the JSON value grammar. The set of tokens includes six structural tokens, strings, numbers, and three literal name tokens.</p>
+  <p>A JSON text is a sequence of tokens formed from Unicode code points that can be matched by the |JSONText| production. The set of tokens includes six structural tokens, strings, numbers, and three literal name tokens.</p>
   <p>The six structural tokens:</p>
   <emu-table id="table-structural-tokens" caption="Structural Tokens">
     <table>
@@ -133,7 +133,20 @@
       </tbody>
     </table>
   </emu-table>
-  <p>Insignificant whitespace is allowed before or after any token. Whitespace is any sequence of one or more of the following code points: character tabulation (U+0009), line feed (U+000A), carriage return (U+000D), and space (U+0020). Whitespace is not allowed within any token, except that space is allowed in strings.</p>
+  <p>Any token may be preceded and/or followed by insignificant whitespace consisting of an arbitrary combination of the following code points: character tabulation (U+0009), line feed (U+000A), carriage return (U+000D), and space (U+0020). Concretely, |JSONText| may begin and/or end with |JSONWhiteSpace|, and there is implicitly an optional |JSONWhiteSpace| in the right-hand side of each JSON grammar production after each non-final structural token terminal symbol and before each non-initial structural token terminal symbol (e.g., <emu-grammar>JSONObject: `{` `}`</emu-grammar> is actually <emu-grammar>JSONObject: `{` JSONWhiteSpace? `}`</emu-grammar> and <emu-grammar>JSONMemberList: JSONMemberList `,` JSONMember</emu-grammar> is actually <emu-grammar>JSONMemberList: JSONMemberList JSONWhiteSpace? `,` JSONWhiteSpace? JSONMember</emu-grammar>).</p>
+  <emu-grammar type="definition">
+    JSONText :
+      JSONWhiteSpace? JSONValue JSONWhiteSpace?
+
+    JSONWhiteSpace :
+      JSONWhiteSpaceChar JSONWhiteSpace?
+
+    JSONWhiteSpaceChar :
+      &lt;U+0009>
+      &lt;U+000A>
+      &lt;U+000D>
+      &lt;U+0020>
+  </emu-grammar>
 </emu-clause>
 
 <emu-clause id="sec-json-values">
