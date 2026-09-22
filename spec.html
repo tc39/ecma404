@@ -2,21 +2,26 @@
 <html lang="en-GB">
 <meta charset="utf-8">
 <link rel="icon" href="img/favicon.ico">
-<pre class="metadata">
-  title: The JSON Data Interchange Syntax
-  shortname: ECMA-404
-  status: standard
-  location: https://tc39.es/ecma404/
-  date: 2017-12-01
-  boilerplate:
-    copyright: alternative
-</pre>
-<p><img src="img/ecma-logo.svg" id="ecma-logo" alt="Ecma International logo"></p>
 <style>
   #ecma-logo {
     width: 500px;
   }
+  #sec-normative-references dfn, #sec-bibliography dfn {
+    font-style: inherit;
+  }
 </style>
+<pre class="metadata">
+  title: The JSON Data Interchange Syntax
+  shortname: ECMA-404
+  version: 3rd edition
+  committee: 39
+  status: draft
+  location: https://tc39.es/ecma404/
+  date: 2026-12-08
+  boilerplate:
+    copyright: alternative
+</pre>
+<p><img src="img/ecma-logo.svg" id="ecma-logo" alt="Ecma International logo"></p>
 
 <emu-intro id="sec-intro">
   <h1>Introduction</h1>
@@ -49,16 +54,22 @@
 <emu-clause id="sec-normative-references">
   <h1>Normative References</h1>
   <p>The following referenced documents are indispensable for the application of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
-  <p>ISO/IEC 10646, <i>Information Technology - Universal Coded Character Set (UCS)</i></p>
   <p>
-    The Unicode Consortium. The Unicode Standard<br>
+    <dfn id="iso-iec-10646">ISO/IEC 10646</dfn>, <i>Information Technology - Universal Coded Character Set (UCS)</i><br>
+    <a href="https://www.iso.org/standard/76835.html">https://www.iso.org/standard/76835.html</a>
+  </p>
+  <p>
+    The
+    <emu-not-ref>Unicode</emu-not-ref> Consortium. <i>The <dfn id="unicode">Unicode</dfn> Standard</i><br>
     <a href="https://www.unicode.org/versions/latest">https://www.unicode.org/versions/latest</a>
   </p>
   <p>
-    Bray, T., Ed. "The JavaScript Object Notation (JSON) Data Interchange Format", RFC 8259.<br>
-    <a href="https://www.rfc-editor.org/rfc/rfc8259">https://www.rfc-editor.org/rfc/rfc8259</a>
+    IETF. <dfn id="rfc-8259">RFC 8259</dfn>: <i>"The JavaScript Object Notation (JSON) Data Interchange Format"</i><br>
+    Edited by Bray, T. December 2017. <a href="https://www.rfc-editor.org/info/rfc8259/">https://www.rfc-editor.org/info/rfc8259/</a>
   </p>
-  <p>This specification and RFC 8259 both provide specifications of the JSON grammar but do so using different formalisms. The intent is that both specifications define the same syntactic language. If a difference is found between them, Ecma International and the IETF will work together to update both documents. If an error is found with either document, the other should be examined to see if it has a similar error, and fixed if possible. If either document is changed in the future, Ecma International and the IETF will work together to ensure that the two documents stay aligned through the change. RFC 8259 also defines various semantic restrictions on the use of the JSON syntax. Those restrictions are not normative for this specification.</p>
+  <emu-note>
+    <p>This specification and RFC 8259 both provide specifications of the JSON grammar but do so using different formalisms. The intent is that both specifications define the same syntactic language. If a difference is found between them, Ecma International and the IETF will work together to update both documents. If an error is found with either document, the other should be examined to see if it has a similar error, and fixed if possible. If either document is changed in the future, Ecma International and the IETF will work together to ensure that the two documents stay aligned through the change. RFC 8259 also defines various semantic restrictions on the use of the JSON syntax. Those restrictions are not normative for this specification.</p>
+  </emu-note>
 </emu-clause>
 
 <emu-clause id="sec-json-text">
@@ -133,7 +144,7 @@
       </tbody>
     </table>
   </emu-table>
-  <p>Any token may be preceded and/or followed by insignificant whitespace consisting of an arbitrary combination of the following code points: character tabulation (U+0009), line feed (U+000A), carriage return (U+000D), and space (U+0020). Concretely, |JSONText| may begin and/or end with |JSONWhiteSpace|, and there is implicitly an optional |JSONWhiteSpace| in the right-hand side of each JSON grammar production after each non-final structural token terminal symbol and before each non-initial structural token terminal symbol (e.g., <emu-grammar>JSONObject: `{` `}`</emu-grammar> is actually <emu-grammar>JSONObject: `{` JSONWhiteSpace? `}`</emu-grammar> and <emu-grammar>JSONMemberList: JSONMemberList `,` JSONMember</emu-grammar> is actually <emu-grammar>JSONMemberList: JSONMemberList JSONWhiteSpace? `,` JSONWhiteSpace? JSONMember</emu-grammar>).</p>
+  <p>Any token may be preceded and/or followed by insignificant whitespace consisting of an arbitrary combination of the following code points: character tabulation (U+0009), line feed (U+000A), carriage return (U+000D), and space (U+0020). Concretely, |JSONText| may begin and/or end with |JSONWhiteSpace|, and there is implicitly an optional |JSONWhiteSpace| in the right-hand side of each JSON grammar production after each non-final structural token terminal symbol and before each non-initial structural token terminal symbol (e.g., <emu-grammar>JSONObject: `{` `}`</emu-grammar> is&nbsp;actually <emu-grammar>JSONObject: `{` JSONWhiteSpace? `}`</emu-grammar> and <emu-grammar>JSONMemberList: JSONMemberList `,` JSONMember</emu-grammar> is&nbsp;actually <emu-grammar>JSONMemberList: JSONMemberList JSONWhiteSpace? `,` JSONWhiteSpace? JSONMember</emu-grammar>).</p>
   <emu-grammar type="definition">
     JSONText :
       JSONWhiteSpace? JSONValue JSONWhiteSpace?
@@ -341,17 +352,11 @@
   </emu-grammar>
 </emu-clause>
 
-<emu-annex id="sec-bibliography">
+<emu-annex id="sec-bibliography" back-matter>
   <h1>Bibliography</h1>
-  <ol>
-    <li>
-      ECMA-262, <i>ECMAScript Language Specification</i><br>
-      <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">https://www.ecma-international.org/publications-and-standards/standards/ecma-262/</a>
-    </li>
-    <li>
-      IETF RFC 8259, <i>The JavaScript Object Notation (JSON) Data Interchange Format</i><br>
-      <a href="https://www.rfc-editor.org/rfc/rfc8259">https://www.rfc-editor.org/rfc/rfc8259</a>
-    </li>
-  </ol>
+  <p>
+    <dfn id="ecma-262">ECMA-262</dfn>, <i>ECMAScript Language Specification</i><br>
+    <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">https://www.ecma-international.org/publications-and-standards/standards/ecma-262/</a>
+  </p>
 </emu-annex>
 </html>
