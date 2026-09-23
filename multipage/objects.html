@@ -1,16 +1,25 @@
 <!doctype html><html lang="en-GB">
-<head><meta name="viewport" content="width=device-width, initial-scale=1"><meta charset="utf-8">
+<head><meta name="viewport" content="width=device-width, initial-scale=1"><meta charset="utf-8"><meta property="og:image" content="https://tc39.es/ecmarkup/ecma-logo.png"><meta property="og:title" content="The JSON Data Interchange Syntax"><meta property="og:description" content="Introduction
+  JSON is a text syntax that facilitates structured data interchange between all programming languages. JSON is a syntax of braces, brackets, colons, and commas that is useful in many contexts, profiles, and applications. JSON stands for JavaScript Object Notation and was inspired by">
 <link rel="icon" href="../img/favicon.ico">
-<title>The JSON Data Interchange Syntax</title><script src="../assets/js/multipage.js?cache=0gTPsLwO" defer=""></script><script src="../assets/js/ecmarkup.js?cache=Qm2xQ9sG" defer=""></script><link rel="stylesheet" href="../assets/css/ecmarkup.css"><link rel="stylesheet" href="../assets/css/print.css" media="print"><style>
+<link rel="stylesheet" href="../assets/css/ecmarkup.css"><link rel="stylesheet" href="../assets/css/print.css" media="print"><style>
+  #ecma-logo {
+    width: 500px;
+  }
+  #sec-normative-references dfn, #sec-bibliography dfn {
+    font-style: inherit;
+  }
+</style>
+<title>The JSON Data Interchange Syntax</title><script src="../assets/js/multipage.js?cache=eRygWh86" defer=""></script><script src="../assets/js/ecmarkup.js?cache=Sr9jit4v" defer=""></script><style>
     @media print {
       @page :left {
         @bottom-right {
-          content: '© Ecma International 2017';
+          content: '© Ecma International 2026';
         }
       }
       @page :right {
         @bottom-left {
-          content: '© Ecma International 2017';
+          content: '© Ecma International 2026';
         }
       }
       @page :first {
@@ -34,7 +43,7 @@
       @import url("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/base16/solarized-light.min.css");
       @import url("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/a11y-dark.min.css") (prefers-color-scheme: dark);
     </style><link rel="canonical" href="../#sec-objects"></head>
-<body><div id="menu"><div id="menu-search"><input type="text" id="menu-search-box" placeholder="Search..."><div id="menu-search-results" class="inactive"></div></div><div id="menu-pins"><div class="menu-pane-header">Pins<button class="unpin-all">clear</button></div><ul id="menu-pins-list"></ul></div><div class="menu-pane-header">Table of Contents</div><div id="menu-toc"><ol class="toc"><li><span class="item-toggle-none"></span><a href="./#sec-intro" title="Introduction">Introduction</a></li><li><span class="item-toggle-none"></span><a href="scope.html#sec-scope" title="Scope"><span class="secnum">1</span> Scope</a></li><li><span class="item-toggle-none"></span><a href="conformance.html#sec-conformance" title="Conformance"><span class="secnum">2</span> Conformance</a></li><li><span class="item-toggle-none"></span><a href="normative-references.html#sec-normative-references" title="Normative References"><span class="secnum">3</span> Normative References</a></li><li><span class="item-toggle-none"></span><a href="json-text.html#sec-json-text" title="JSON Text"><span class="secnum">4</span> JSON Text</a></li><li><span class="item-toggle-none"></span><a href="json-values.html#sec-json-values" title="JSON Values"><span class="secnum">5</span> JSON Values</a></li><li><span class="item-toggle-none"></span><a href="objects.html#sec-objects" title="Objects"><span class="secnum">6</span> Objects</a></li><li><span class="item-toggle-none"></span><a href="arrays.html#sec-arrays" title="Arrays"><span class="secnum">7</span> Arrays</a></li><li><span class="item-toggle-none"></span><a href="numbers.html#sec-numbers" title="Numbers"><span class="secnum">8</span> Numbers</a></li><li><span class="item-toggle-none"></span><a href="strings.html#sec-strings" title="Strings"><span class="secnum">9</span> Strings</a></li><li><span class="item-toggle-none"></span><a href="bibliography.html#sec-bibliography" title="Bibliography"><span class="secnum">Annex A <span class="annex-kind">(informative)</span></span> Bibliography</a></li><li><span class="item-toggle-none"></span><a href="copyright-and-software-license.html#sec-copyright-and-software-license" title="Copyright &amp; Software License">Copyright &amp; Software License</a></li></ol></div></div>
+<body><div id="menu"><div id="menu-search"><input type="text" id="menu-search-box" placeholder="Search..."><div id="menu-search-results" class="inactive"></div></div><div id="menu-pins"><div class="menu-pane-header">Pins<button class="unpin-all">clear</button></div><ul id="menu-pins-list"></ul></div><div class="menu-pane-header">Table of Contents</div><div id="menu-toc"><ol class="toc"><li><span class="item-toggle-none"></span><a href="./#sec-intro" title="Introduction">Introduction</a></li><li><span class="item-toggle-none"></span><a href="scope.html#sec-scope" title="Scope"><span class="secnum">1</span> Scope</a></li><li><span class="item-toggle-none"></span><a href="conformance.html#sec-conformance" title="Conformance"><span class="secnum">2</span> Conformance</a></li><li><span class="item-toggle-none"></span><a href="normative-references.html#sec-normative-references" title="Normative References"><span class="secnum">3</span> Normative References</a></li><li><span class="item-toggle-none"></span><a href="json-text.html#sec-json-text" title="JSON Text"><span class="secnum">4</span> JSON Text</a></li><li><span class="item-toggle-none"></span><a href="json-values.html#sec-json-values" title="JSON Values"><span class="secnum">5</span> JSON Values</a></li><li><span class="item-toggle-none"></span><a href="objects.html#sec-objects" title="Objects"><span class="secnum">6</span> Objects</a></li><li><span class="item-toggle-none"></span><a href="arrays.html#sec-arrays" title="Arrays"><span class="secnum">7</span> Arrays</a></li><li><span class="item-toggle-none"></span><a href="numbers.html#sec-numbers" title="Numbers"><span class="secnum">8</span> Numbers</a></li><li><span class="item-toggle-none"></span><a href="strings.html#sec-strings" title="Strings"><span class="secnum">9</span> Strings</a></li><li><span class="item-toggle-none"></span><a href="bibliography.html#sec-bibliography" title="Bibliography">Bibliography</a></li><li><span class="item-toggle-none"></span><a href="copyright-and-software-license.html#sec-copyright-and-software-license" title="Copyright &amp; Software License">Copyright &amp; Software License</a></li></ol></div></div>
 <div id="menu-spacer" class="menu-spacer"></div>
 <div id="menu-toggle"><svg xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%; stroke:currentColor" viewBox="0 0 120 120" width="54" height="54">
       <title>Menu</title>
@@ -63,25 +72,25 @@
     </emu-rhs>
     <emu-rhs a="yfunnjma">
         <emu-t>{</emu-t>
-        <emu-nt id="_ref_4"><a href="objects.html#prod-JSONMemberList">JSONMemberList</a></emu-nt>
+        <emu-nt id="_ref_39"><a href="objects.html#prod-JSONMemberList">JSONMemberList</a></emu-nt>
         <emu-t>}</emu-t>
     </emu-rhs>
 </emu-production>
 <emu-production name="JSONMemberList" id="prod-JSONMemberList">
     <emu-nt><a href="objects.html#prod-JSONMemberList">JSONMemberList</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="rek1fopx">
-        <emu-nt id="_ref_5"><a href="objects.html#prod-JSONMember">JSONMember</a></emu-nt>
+        <emu-nt id="_ref_40"><a href="objects.html#prod-JSONMember">JSONMember</a></emu-nt>
     </emu-rhs>
     <emu-rhs a="y2voqlk8">
-        <emu-nt id="_ref_6"><a href="objects.html#prod-JSONMemberList">JSONMemberList</a></emu-nt>
+        <emu-nt id="_ref_41"><a href="objects.html#prod-JSONMemberList">JSONMemberList</a></emu-nt>
         <emu-t>,</emu-t>
-        <emu-nt id="_ref_7"><a href="objects.html#prod-JSONMember">JSONMember</a></emu-nt>
+        <emu-nt id="_ref_42"><a href="objects.html#prod-JSONMember">JSONMember</a></emu-nt>
     </emu-rhs>
 </emu-production>
 <emu-production name="JSONMember" id="prod-JSONMember">
     <emu-nt><a href="objects.html#prod-JSONMember">JSONMember</a></emu-nt> <emu-geq>:</emu-geq> <emu-rhs a="pu1emm0s">
-        <emu-nt id="_ref_8"><a href="strings.html#prod-JSONString">JSONString</a></emu-nt>
+        <emu-nt id="_ref_43"><a href="strings.html#prod-JSONString">JSONString</a></emu-nt>
         <emu-t>:</emu-t>
-        <emu-nt id="_ref_9"><a href="json-values.html#prod-JSONValue">JSONValue</a></emu-nt>
+        <emu-nt id="_ref_44"><a href="json-values.html#prod-JSONValue">JSONValue</a></emu-nt>
     </emu-rhs>
 </emu-production>
 </emu-grammar>
