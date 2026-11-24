@@ -6,7 +6,7 @@
 	"scripts": {
 		"prebuild": "npm run clean && mkdir out && cp -R img out",
 		"build": "ecmarkup --verbose spec.html --multipage out",
-		"build-for-pdf": "npm run prebuild && ecmarkup --verbose spec.html out/index.html --assets external --assets-dir out --printable --lint-spec --strict",
+		"build-for-pdf": "npm run prebuild && ecmarkup --verbose --no-minify spec.html out/index.html --assets external --assets-dir out --printable --lint-spec",
 		"pdf": "npm run build-for-pdf && prince-books --script ./node_modules/ecmarkup/js/print.js out/index.html -o out/ECMA-404.pdf",
 		"clean": "rm -rf out",
 		"format": "emu-format --write spec.html",
@@ -21,6 +21,6 @@
 	"license": "SEE LICENSE IN https://tc39.es/ecma404/#sec-copyright-and-software-license",
 	"homepage": "https://github.com/tc39/ecma404#readme",
 	"devDependencies": {
-		"ecmarkup": "^22.0.0"
-	}
+    "ecmarkup": "^25.0.3"
+  }
 }
